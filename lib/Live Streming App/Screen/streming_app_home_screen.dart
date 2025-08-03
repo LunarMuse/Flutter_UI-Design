@@ -1,26 +1,27 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_design/Live%20Streming%20App/Constants/colors.dart';
-import 'package:flutter_ui_design/Live%20Streming%20App/Model/stream_category.dart';
 import 'package:flutter_ui_design/Live%20Streming%20App/Model/model.dart';
+import 'package:flutter_ui_design/Live%20Streming%20App/Model/stream_category.dart';
 import 'package:flutter_ui_design/Live%20Streming%20App/Screen/live_stream_screen.dart';
 import 'package:flutter_ui_design/Live%20Streming%20App/Screen/profile_detail_screen.dart';
 import 'package:iconsax/iconsax.dart';
 
-class GoLiveScreen extends StatefulWidget {
-  const GoLiveScreen({super.key});
+class StremingAppHomeScreen extends StatefulWidget {
+  const StremingAppHomeScreen({super.key});
 
   @override
-  State<GoLiveScreen> createState() => _GoLiveScreenState();
+  State<StremingAppHomeScreen> createState() => _StremingAppHomeScreenState();
 }
 
-class _GoLiveScreenState extends State<GoLiveScreen> {
-  String categoryes = '🎮Gaming';
+class _StremingAppHomeScreenState extends State<StremingAppHomeScreen> {
+  String categoryes = "🎮Gaming"; // default
   List<StreamItems> stream = streamItems;
   @override
   void initState() {
     super.initState();
-    // Filter stream based on initial category
+    // filter stream based on initial category
     stream = streamItems
         .where((element) =>
             element.category.toLowerCase() == categoryes.toLowerCase())
@@ -38,135 +39,37 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
           children: [
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "GoLive",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 27,
-                          ),
-                        ),
-                      ),
-                      iconButton(Icons.nightlight_outlined),
-                      const SizedBox(width: 15),
-                      iconButton(Icons.notifications_outlined),
-                      const SizedBox(width: 15),
-                      iconButton(Icons.search),
-                    ],
-                  ),
-                ),
+                headerParts(),
                 const SizedBox(height: 30),
-                SizedBox(
-                  height: size.height * 0.16,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: streamItems.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 7),
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Column(
-                              children: [
-                                DecoratedBox(
-                                  // border and border color
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: streamItems[index].isLiveNow
-                                            ? Colors.red
-                                            : Colors.white38,
-                                        width: streamItems[index].isLiveNow
-                                            ? 3
-                                            : 1),
-                                  ),
-                                  // color and image
-                                  child: Container(
-                                    margin: const EdgeInsets.all(4),
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: streamItems[index].color,
-                                    ),
-                                    child: Image.network(
-                                      streamItems[index].url,
-                                      fit: BoxFit.cover,
-                                      width: 60,
-                                      height: 60,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  streamItems[index].name,
-                                  style: TextStyle(
-                                    color: streamItems[index].isLiveNow
-                                        ? Colors.white
-                                        : Colors.white54,
-                                  ),
-                                )
-                              ],
-                            ),
-                            // live or not
-                            streamItems[index].isLiveNow
-                                ? Positioned(
-                                    top: 0,
-                                    right: -15,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 3),
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: const Text(
-                                        "Live",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox.shrink()
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                // live creator and remaning all
+                profile(size),
+                // for cagegory
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Categories",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white,
-                          )),
+                      Text(
+                        "Categories",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
                       Text(
                         "View All",
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.pinkAccent,
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
                 const SizedBox(height: 20),
-                // for category
                 SizedBox(
-                  height: size.height * .05,
+                  height: size.height * 0.05,
                   width: double.infinity,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -176,7 +79,7 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                         onTap: () {
                           setState(() {
                             categoryes = streamCategory[index].title;
-                            categoryes == "All"
+                            categoryes == ""
                                 ? stream = streamItems
                                 : stream = streamItems
                                     .where((element) =>
@@ -204,7 +107,7 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                   fontSize: 16,
                                   color: Colors.white,
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
@@ -213,9 +116,9 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                // Category items
+                // for category items,
                 SizedBox(
-                  height: size.height * .55,
+                  height: size.height * 0.55,
                   width: double.infinity,
                   child: GridView.builder(
                     itemCount: stream.length,
@@ -227,15 +130,14 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                       childAspectRatio: 0.7,
                     ),
                     itemBuilder: (context, index) {
-                      final liveStream = stream[index];
+                      final streamItems = stream[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => VideoLiveScreen(
-                                streamItems: liveStream,
-                              ),
+                              builder: (context) =>
+                                  LiveStreamScreen(streamItems: streamItems),
                             ),
                           );
                         },
@@ -248,11 +150,11 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Hero(
-                                      tag: liveStream.image,
+                                      tag: streamItems.image,
                                       child: Image.network(
-                                        liveStream.image,
-                                        width: size.width * .47,
-                                        height: size.height * .25,
+                                        streamItems.image,
+                                        width: size.width * 0.47,
+                                        height: size.height * 0.25,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -264,8 +166,8 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                       borderRadius: BorderRadius.circular(15),
                                       child: BackdropFilter(
                                         filter: ImageFilter.blur(
-                                          sigmaX: 10.0,
-                                          sigmaY: 10.0,
+                                          sigmaX: 10,
+                                          sigmaY: 10,
                                         ),
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
@@ -280,7 +182,7 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                               ),
                                               const SizedBox(width: 3),
                                               Text(
-                                                liveStream.viewer,
+                                                streamItems.viewer,
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                 ),
@@ -296,16 +198,19 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                     right: 7,
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 7, vertical: 2.5),
+                                        horizontal: 7,
+                                        vertical: 2.5,
+                                      ),
                                       decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(15 / 2)),
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
                                       child: const Text(
                                         "Live",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -313,10 +218,11 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                     bottom: 7,
                                     left: 15,
                                     child: Text(
-                                      liveStream.streamTitle,
+                                      streamItems.streamTitle,
                                       style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
@@ -335,18 +241,17 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 ProfileDetailScreen(
-                                              stream: liveStream,
+                                              stream: streamItems,
                                             ),
                                           ),
                                         );
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                          horizontal: 7,
-                                        ),
+                                            horizontal: 7),
                                         child: CircleAvatar(
                                           backgroundImage: NetworkImage(
-                                            liveStream.url,
+                                            streamItems.url,
                                           ),
                                         ),
                                       ),
@@ -356,7 +261,7 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          liveStream.name,
+                                          streamItems.name,
                                           style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,
@@ -364,33 +269,36 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                           ),
                                         ),
                                         Text(
-                                          "${liveStream.followers} Followers",
+                                          "${streamItems.followers} Followers",
                                           style: const TextStyle(
-                                              color: Colors.white60),
-                                        )
+                                            color: Colors.white60,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     const Spacer(),
-                                    const Icon(Icons.more_vert,color: Colors.white60), const SizedBox(width: 10)
+                                    const Icon(Icons.more_vert,
+                                        color: Colors.white60),
+                                    const SizedBox(width: 5),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       );
                     },
                   ),
-                ),
+                )
               ],
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: 80,
+                height: 70,
                 child: ClipRRect(
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaY: 10.0, sigmaX: 10.0),
+                    filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       color: Colors.transparent,
@@ -410,7 +318,7 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
                                 right: 0,
                                 left: 0,
                                 child: CircleAvatar(radius: 3),
-                              ),
+                              )
                             ],
                           ),
                           Icon(
@@ -449,6 +357,124 @@ class _GoLiveScreenState extends State<GoLiveScreen> {
           size: 30,
           color: Colors.white,
         ),
+      ),
+    );
+  }
+
+  SizedBox profile(Size size) {
+    return SizedBox(
+      height: size.height * 0.16,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: streamItems.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ProfileDetailScreen(stream: streamItems[index]),
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 7),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Column(
+                    children: [
+                      DecoratedBox(
+                        // border and border color
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: streamItems[index].isLiveNow
+                                ? Colors.red
+                                : Colors.white38,
+                            width: streamItems[index].isLiveNow ? 3 : 1,
+                          ),
+                        ),
+                        // background color and iamge,
+                        child: Container(
+                          margin: const EdgeInsets.all(4),
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: streamItems[index].color,
+                          ),
+                          child: Image.network(
+                            streamItems[index].url,
+                            fit: BoxFit.cover,
+                            width: 60,
+                            height: 60,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        streamItems[index].name,
+                        style: TextStyle(
+                          color: streamItems[index].isLiveNow
+                              ? Colors.white
+                              : Colors.white54,
+                        ),
+                      )
+                    ],
+                  ),
+                  // live or not
+                  streamItems[index].isLiveNow
+                      ? Positioned(
+                          top: 0,
+                          right: -15,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 3),
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Text(
+                              "Live",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Padding headerParts() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        children: [
+          const Expanded(
+            child: Text(
+              "GoLive",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 28,
+              ),
+            ),
+          ),
+          iconButton(Icons.nightlight_outlined),
+          const SizedBox(width: 15),
+          iconButton(Icons.notifications_outlined),
+          const SizedBox(width: 15),
+          iconButton(Icons.search),
+        ],
       ),
     );
   }

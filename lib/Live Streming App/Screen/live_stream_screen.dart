@@ -1,11 +1,12 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_design/Live%20Streming%20App/Model/model.dart';
 import 'package:flutter_ui_design/Live%20Streming%20App/Screen/profile_detail_screen.dart';
 
-class VideoLiveScreen extends StatelessWidget {
+class LiveStreamScreen extends StatelessWidget {
   final StreamItems streamItems;
-  const VideoLiveScreen({super.key, required this.streamItems});
+  const LiveStreamScreen({super.key, required this.streamItems});
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +33,19 @@ class VideoLiveScreen extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      //
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProfileDetailScreen(
-                            stream: streamItems,
-                          ),
+                          builder: (context) =>
+                              ProfileDetailScreen(stream: streamItems),
                         ),
                       );
                     },
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(streamItems.url),
+                      backgroundImage: NetworkImage(
+                        streamItems.url,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -70,10 +73,8 @@ class VideoLiveScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.blueAccent,
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
-                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: const Text(
                       "Follow",
                       style: TextStyle(
@@ -86,7 +87,10 @@ class VideoLiveScreen extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 1.0),
+                      filter: ImageFilter.blur(
+                        sigmaX: 10,
+                        sigmaY: 10,
+                      ),
                       child: Container(
                         margin: const EdgeInsets.symmetric(
                           horizontal: 7,
@@ -110,16 +114,16 @@ class VideoLiveScreen extends StatelessWidget {
                             Container(
                               margin: const EdgeInsets.symmetric(horizontal: 7),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 2),
+                                horizontal: 5,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 5,
-                                  vertical: 2,
-                                ),
+                                    horizontal: 5, vertical: 2),
                                 child: Text(
                                   "Live",
                                   style: TextStyle(color: Colors.white),
@@ -130,7 +134,7 @@ class VideoLiveScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -140,7 +144,7 @@ class VideoLiveScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: SizedBox(
-                height: 60.0,
+                height: 60,
                 width: double.infinity,
                 child: ClipRRect(
                   child: Padding(
@@ -158,15 +162,15 @@ class VideoLiveScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                    child: TextFormField(
-                                  decoration: const InputDecoration(
-                                    hintText: "Comment...",
-                                    hintStyle: TextStyle(color: Colors.white),
-                                    // disabledBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
+                                  child: TextFormField(
+                                    decoration: const InputDecoration(
+                                      hintText: "Comment...",
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                    ),
                                   ),
-                                )),
+                                ),
                                 CircleAvatar(
                                   backgroundColor: Colors.purpleAccent,
                                   child: Transform.rotate(
@@ -212,7 +216,7 @@ class VideoLiveScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(
-                bottom: size.height * .1,
+                bottom: size.height * 0.1,
                 right: 15,
                 left: 15,
               ),
@@ -223,22 +227,24 @@ class VideoLiveScreen extends StatelessWidget {
                     margin: const EdgeInsets.all(7),
                     padding: const EdgeInsets.all(7),
                     decoration: BoxDecoration(
-                        color: Colors.grey.withAlpha(10),
-                        borderRadius: BorderRadius.circular(25)),
+                      color: Colors.grey.withAlpha(10),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                     child: const Row(
-                      children: <Widget>[
+                      children: [
+                        SizedBox(width: 10),
                         CircleAvatar(
                           backgroundColor: Colors.white30,
                           backgroundImage: NetworkImage(
-                              "https://cdn4.iconfinder.com/data/icons/author-emoticon/50/4-512.png"),
+                              "https://symbl-cdn.com/i/webp/9c/4628a5e254c186333877e3449d1caf.webp"),
                         ),
-                        SizedBox(width: 7),
+                        SizedBox(width: 20),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "Naked Snake",
+                              "Sample User",
                               style: TextStyle(
                                 color: Colors.white30,
                                 fontWeight: FontWeight.bold,
@@ -255,15 +261,9 @@ class VideoLiveScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const CommentCard(
-                    comment: "What Game?",
-                  ),
-                  const CommentCard(
-                    comment: "What your name?",
-                  ),
-                  const CommentCard(
-                    comment: "Love",
-                  )
+                  commonChatCard("Good Game!"),
+                  commonChatCard("I love you❤️"),
+                  commonChatCard("What is your favorite sports"),
                 ],
               ),
             ),
@@ -272,41 +272,34 @@ class VideoLiveScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-class CommentCard extends StatelessWidget {
-  const CommentCard({
-    super.key,
-    required this.comment,
-  });
-
-  final String comment;
-
-  @override
-  Widget build(BuildContext context) {
+  Container commonChatCard(comment) {
     return Container(
       margin: const EdgeInsets.all(7),
       padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
-          color: Colors.grey.withAlpha(30),
-          borderRadius: BorderRadius.circular(25)),
+        color: Colors.grey.withAlpha(30),
+        borderRadius: BorderRadius.circular(25),
+      ),
       child: Row(
-        children: <Widget>[
+        children: [
+          const SizedBox(width: 10),
           const CircleAvatar(
+            backgroundColor: Colors.white,
             backgroundImage: NetworkImage(
-                "https://cdn4.iconfinder.com/data/icons/author-emoticon/50/4-512.png"),
+                "https://symbl-cdn.com/i/webp/9c/4628a5e254c186333877e3449d1caf.webp"),
           ),
-          const SizedBox(
-            width: 15 / 2,
-          ),
+          const SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                "Naked Snake",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                "Sample User",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 comment,

@@ -1,16 +1,22 @@
 # flutter_ui_design
+The source code from my various YouTube videos includes Flutter UI designs, AI integrations in Flutter, and using local databases in Flutter apps.
 
-A new Flutter project.
+Flutter UI Design:
+AI Integration:
+Hive Database:
 
-## Getting Started
+Some of the Dribbble UI designs have also been recreated in Flutter as part of these projects.
 
-This project is a starting point for a Flutter application.
+## Football Live Score App UI 
+<div align=center> <img src = 'assets/football lives_score.png' width = '750' > </div>
 
-A few resources to get you started if this is your first Flutter project:
+## Medical App
+<div align=center> <img src = 'assets/doctor appointment.png' width = '750' > </div>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Food Delivery App 🍔
+<div align=center> <img src = 'assets/food_delivery_app.png' width = '750' > </div> 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Travel App
+<div align=center> <img src = 'assets/travel_app.png' width = '750' > </div> 
+
+## And many more other other tutorial, visit the YouTube playlist for all.

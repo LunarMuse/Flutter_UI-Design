@@ -19,7 +19,7 @@ class StreamItems {
     required this.name,
     required this.category,
     required this.url,
-    this.isLiveNow = false,
+    this.isLiveNow = false, // initially false
     required this.followers,
     required this.color,
     required this.image,
