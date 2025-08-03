@@ -1,4 +1,4 @@
-# flutter_ui_design
+# Flutter Tutorial
 The source code from my various YouTube videos includes Flutter UI designs, AI integrations in Flutter, and using local databases in Flutter apps.
 
 Flutter UI Design: https://www.youtube.com/playlist?list=PLOEXB48nQMqPHPN79sya9t2q1GX6SiNtU <br>
